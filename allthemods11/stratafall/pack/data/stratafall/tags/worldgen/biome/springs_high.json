@@ -1,0 +1,115 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cherry_grove",
+    "minecraft:frozen_peaks",
+    "minecraft:grove",
+    "minecraft:jagged_peaks",
+    "minecraft:meadow",
+    "minecraft:snowy_slopes",
+    "minecraft:stony_peaks",
+    "minecraft:windswept_forest",
+    "minecraft:windswept_gravelly_hills",
+    "minecraft:windswept_hills",
+    {
+      "id": "regions_unexplored:arid_mountains",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:grassland",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:highland_fields",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:magnolia_woodland",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mauve_hills",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:mountains",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:pine_slopes",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:towering_cliffs",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:windswept_maple_forest",
+      "required": false
+    },
+    {
+      "id": "regions_unexplored:wisteria_grove",
+      "required": false
+    },
+    {
+      "id": "terralith:alpine_grove",
+      "required": false
+    },
+    {
+      "id": "terralith:alpine_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:blooming_plateau",
+      "required": false
+    },
+    {
+      "id": "terralith:emerald_peaks",
+      "required": false
+    },
+    {
+      "id": "terralith:forested_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:haze_mountain",
+      "required": false
+    },
+    {
+      "id": "terralith:highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:jungle_mountains",
+      "required": false
+    },
+    {
+      "id": "terralith:rocky_mountains",
+      "required": false
+    },
+    {
+      "id": "terralith:scarlet_mountains",
+      "required": false
+    },
+    {
+      "id": "terralith:siberian_grove",
+      "required": false
+    },
+    {
+      "id": "terralith:snowy_maple_forest",
+      "required": false
+    },
+    {
+      "id": "terralith:snowy_shield",
+      "required": false
+    },
+    {
+      "id": "terralith:temperate_highlands",
+      "required": false
+    },
+    {
+      "id": "terralith:tropical_jungle",
+      "required": false
+    }
+  ]
+}
