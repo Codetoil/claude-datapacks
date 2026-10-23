@@ -1,0 +1,75 @@
+{
+  "occultism:chalks/root": {
+    "criteria": {
+      "always": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "theurgy:book_root": {
+    "criteria": {
+      "theurgy_present": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "undergarden:undergarden/root": {
+    "criteria": {
+      "tick": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "lootr:root": {
+    "criteria": {
+      "always_true": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "apotheosis:progression/root": {
+    "criteria": {
+      "tick": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "iceandfire:iceandfire/root": {
+    "criteria": {
+      "tick": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "dungeons_arise:wda_root": {
+    "criteria": {
+      "WDA": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "mffs:grant_book_on_first_join": {
+    "criteria": {
+      "guidebook": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "auroral:root": {
+    "criteria": {
+      "in_cold_biome": "2026-10-23 06:37:04 -0400"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:snowy_slopes": "2026-10-23 06:37:04 -0400"
+    },
+    "done": false
+  },
+  "occultism:occultism/root": {
+    "criteria": {
+      "occultism_present": "2026-10-23 06:37:03 -0400"
+    },
+    "done": true
+  },
+  "regions_unexplored:parent": {
+    "criteria": {
+      "load_in_world": "2026-10-23 06:37:04 -0400"
+    },
+    "done": true
+  },
+  "DataVersion": 4790
+}
