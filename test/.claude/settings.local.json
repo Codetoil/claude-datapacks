@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__minecraft__minecraft_chat_send",
+      "mcp__minecraft__minecraft_chat_read",
+      "mcp__minecraft__minecraft_chat_wait",
+      "mcp__minecraft__minecraft_status",
+      "mcp__minecraft__minecraft_command",
+      "mcp__minecraft__minecraft_rpc",
+      "Bash(python3 -I vastlands/tools/say.py server.properties *)"
+    ],
+    "ask": [
+      "mcp__minecraft__minecraft_admin_command",
+      "mcp__minecraft__minecraft_admin_rpc",
+      "Edit(//home/codetoil/datapacks/test/ops.json)",
+      "Edit(//home/codetoil/datapacks/test/whitelist.json)",
+      "Edit(//home/codetoil/datapacks/test/banned-players.json)",
+      "Edit(//home/codetoil/datapacks/test/banned-ips.json)",
+      "Edit(//home/codetoil/datapacks/test/server.properties)"
+    ]
+  }
+}
