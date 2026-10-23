@@ -3,11 +3,20 @@ server.properties
 management-keystore.p12
 management-cert.pem
 
-# Third-party binaries: re-download from the modpack / Mojang / NeoForge installer.
+# All The Mods 11 server bundle (CurseForge file 9187108; see allthemods11/NOTES.md): restore from the bundle.
+/allthemods11/config/
+/allthemods11/kubejs/
+/allthemods11/local/
 /allthemods11/mods/
-/allthemods11/libraries/
+/allthemods11/startserver.bat
+/allthemods11/startserver.sh
 /allthemods11/neoforge-*-installer.jar
 /allthemods11/neoforge-*-installer.jar.log
+/allthemods11/user_jvm_args.txt
+/allthemods11/server-icon.png
+
+# Third-party binaries: created by the NeoForge installer / re-download from Mojang.
+/allthemods11/libraries/
 /test/libraries/
 /test/versions/
 /test/server.jar
@@ -22,6 +31,3 @@ logs/
 crash-reports/
 __pycache__/
 *.pyc
-
-# Resourceful Config web editor: holds a generated password (redacted copy: *.example).
-/allthemods11/config/resourceful-config-web.json
