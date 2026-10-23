@@ -120,3 +120,20 @@ functions). Read Tectonic's files from the jar until reportdump loads built-in p
   (frozen ocean with islands). `--method forceload` at 2048,2048 timed out (600 s) because of the pause.
 - `render_map.py` / `render_view.py` on the spawn area (671 chunks, ~1 s) and the pregen area.
 - Not tested: anything needing a player online (chat in and out, `as`-player commands); admin tools (they ask).
+
+## Server bundle (not tracked in git)
+
+The files that come with the All The Mods 11 server bundle are gitignored in `Codetoil/claude-datapacks`; restore
+them from the bundle Codetoil linked on 2026-10-23: <https://www.curseforge.com/minecraft/modpacks/all-the-mods-11/files/9187108>.
+
+- From the bundle: `config/`, `kubejs/`, `local/`, `mods/`, `startserver.bat`, `startserver.sh`,
+  `neoforge-26.1.2.109-installer.jar`, `user_jvm_args.txt`, `server-icon.png`.
+- Created from those: `libraries/` (the NeoForge installer, run by `startserver.sh` or
+  `java -jar neoforge-26.1.2.109-installer.jar --installServer`), `defaultconfigs/`, and configs rewritten on load.
+- **Changes made after install are not in the current tree.** When the folder was copied (2026-10-23), 326 of the
+  1,742 files in `config/`, `kubejs/` and `local/` were newer than the installer (configs the server rewrote on load,
+  plus any edits, e.g. `config/tectonic.json`). Commit `978b046` still has that state:
+  `git restore --source=978b046 -- allthemods11/config allthemods11/kubejs allthemods11/local` writes it over the
+  bundle (working tree only, so the files stay untracked).
+- Secrets stay out of git: `server.properties` has a redacted `server.properties.example`; `management-keystore.p12`
+  and `management-cert.pem` exist only on Codetoil's machine (and in copies made from it), not in the repo.
