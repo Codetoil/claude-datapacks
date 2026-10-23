@@ -1,0 +1,27 @@
+# Secrets: never commit. Each server.properties has a redacted server.properties.example next to it.
+server.properties
+management-keystore.p12
+management-cert.pem
+
+# Third-party binaries: re-download from the modpack / Mojang / NeoForge installer.
+/allthemods11/mods/
+/allthemods11/libraries/
+/allthemods11/neoforge-*-installer.jar
+/allthemods11/neoforge-*-installer.jar.log
+/test/libraries/
+/test/versions/
+/test/server.jar
+
+# Regenerable: reportdump-neo's `./gradlew runDataATM11` work folder (game dir + ~1.3 GB of reports).
+/allthemods11/datagen/
+
+# Runtime output and caches.
+.cache/
+.mixin.out/
+logs/
+crash-reports/
+__pycache__/
+*.pyc
+
+# Resourceful Config web editor: holds a generated password (redacted copy: *.example).
+/allthemods11/config/resourceful-config-web.json

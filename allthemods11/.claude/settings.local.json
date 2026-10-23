@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__minecraft__minecraft_chat_send",
+      "mcp__minecraft__minecraft_chat_read",
+      "mcp__minecraft__minecraft_chat_wait",
+      "mcp__minecraft__minecraft_status",
+      "mcp__minecraft__minecraft_command",
+      "mcp__minecraft__minecraft_rpc"
+    ],
+    "ask": [
+      "mcp__minecraft__minecraft_admin_command",
+      "mcp__minecraft__minecraft_admin_rpc",
+      "Edit(//home/codetoil/datapacks/allthemods11/ops.json)",
+      "Edit(//home/codetoil/datapacks/allthemods11/whitelist.json)",
+      "Edit(//home/codetoil/datapacks/allthemods11/banned-players.json)",
+      "Edit(//home/codetoil/datapacks/allthemods11/banned-ips.json)",
+      "Edit(//home/codetoil/datapacks/allthemods11/server.properties)",
+      "Edit(//home/codetoil/datapacks/allthemods11/world/serverconfig/ftbranks/**)"
+    ]
+  }
+}

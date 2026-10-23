@@ -1,0 +1,2 @@
+#Enable Discord Rich Presence
+rpc_enabled = true

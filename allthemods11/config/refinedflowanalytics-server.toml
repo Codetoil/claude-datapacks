@@ -1,0 +1,14 @@
+[flowGrid]
+	# Default: 20
+	# Range: 0 ~ 9223372036854775807
+	energyUsage = 20
+
+[flowMonitor]
+	# Default: 4
+	# Range: 0 ~ 9223372036854775807
+	energyUsage = 4
+
+[flowDetector]
+	# Default: 2
+	# Range: 0 ~ 9223372036854775807
+	energyUsage = 2
