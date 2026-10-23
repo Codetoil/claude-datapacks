@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:cache",
+  "input": {
+    "type": "minecraft:mul",
+    "left": 1.5,
+    "right": "vastlands:vanilla_jaggedness"
+  }
+}
