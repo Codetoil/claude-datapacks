@@ -32,13 +32,13 @@
                 {
                   "type": "lithostitched:slope",
                   "height_difference": [
-                    5,
+                    4,
                     2147483647
                   ]
                 },
                 {
                   "type": "minecraft:stone_depth",
-                  "offset": 7,
+                  "offset": 6,
                   "add_surface_depth": false,
                   "secondary_depth_range": 0,
                   "surface_type": "floor"
@@ -51,13 +51,13 @@
                 {
                   "type": "lithostitched:slope",
                   "height_difference": [
-                    9,
+                    8,
                     2147483647
                   ]
                 },
                 {
                   "type": "minecraft:stone_depth",
-                  "offset": 15,
+                  "offset": 14,
                   "add_surface_depth": false,
                   "secondary_depth_range": 0,
                   "surface_type": "floor"
@@ -70,13 +70,13 @@
                 {
                   "type": "lithostitched:slope",
                   "height_difference": [
-                    17,
+                    16,
                     2147483647
                   ]
                 },
                 {
                   "type": "minecraft:stone_depth",
-                  "offset": 31,
+                  "offset": 30,
                   "add_surface_depth": false,
                   "secondary_depth_range": 0,
                   "surface_type": "floor"
@@ -89,13 +89,32 @@
                 {
                   "type": "lithostitched:slope",
                   "height_difference": [
-                    33,
+                    32,
                     2147483647
                   ]
                 },
                 {
                   "type": "minecraft:stone_depth",
-                  "offset": 63,
+                  "offset": 62,
+                  "add_surface_depth": false,
+                  "secondary_depth_range": 0,
+                  "surface_type": "floor"
+                }
+              ]
+            },
+            {
+              "type": "lithostitched:all_of",
+              "conditions": [
+                {
+                  "type": "lithostitched:slope",
+                  "height_difference": [
+                    64,
+                    2147483647
+                  ]
+                },
+                {
+                  "type": "minecraft:stone_depth",
+                  "offset": 126,
                   "add_surface_depth": false,
                   "secondary_depth_range": 0,
                   "surface_type": "floor"

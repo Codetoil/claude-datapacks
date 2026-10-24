@@ -1,0 +1,225 @@
+{
+  "type": "lithostitched:add_surface_rule",
+  "priority": 900,
+  "injection_type": "prepend",
+  "levels": [
+    "minecraft:overworld"
+  ],
+  "surface_rule": {
+    "type": "minecraft:condition",
+    "if_true": {
+      "type": "lithostitched:all_of",
+      "conditions": [
+        {
+          "type": "minecraft:above_preliminary_surface"
+        },
+        {
+          "type": "lithostitched:biome",
+          "biomes": "#stratafall:strata"
+        },
+        {
+          "type": "minecraft:water",
+          "offset": 0,
+          "surface_depth_multiplier": 0,
+          "add_stone_depth": false
+        },
+        {
+          "type": "lithostitched:any_of",
+          "conditions": [
+            {
+              "type": "lithostitched:all_of",
+              "conditions": [
+                {
+                  "type": "lithostitched:slope",
+                  "height_difference": [
+                    4,
+                    2147483647
+                  ]
+                },
+                {
+                  "type": "minecraft:stone_depth",
+                  "offset": 6,
+                  "add_surface_depth": false,
+                  "secondary_depth_range": 0,
+                  "surface_type": "floor"
+                }
+              ]
+            },
+            {
+              "type": "lithostitched:all_of",
+              "conditions": [
+                {
+                  "type": "lithostitched:slope",
+                  "height_difference": [
+                    8,
+                    2147483647
+                  ]
+                },
+                {
+                  "type": "minecraft:stone_depth",
+                  "offset": 14,
+                  "add_surface_depth": false,
+                  "secondary_depth_range": 0,
+                  "surface_type": "floor"
+                }
+              ]
+            },
+            {
+              "type": "lithostitched:all_of",
+              "conditions": [
+                {
+                  "type": "lithostitched:slope",
+                  "height_difference": [
+                    16,
+                    2147483647
+                  ]
+                },
+                {
+                  "type": "minecraft:stone_depth",
+                  "offset": 30,
+                  "add_surface_depth": false,
+                  "secondary_depth_range": 0,
+                  "surface_type": "floor"
+                }
+              ]
+            },
+            {
+              "type": "lithostitched:all_of",
+              "conditions": [
+                {
+                  "type": "lithostitched:slope",
+                  "height_difference": [
+                    32,
+                    2147483647
+                  ]
+                },
+                {
+                  "type": "minecraft:stone_depth",
+                  "offset": 62,
+                  "add_surface_depth": false,
+                  "secondary_depth_range": 0,
+                  "surface_type": "floor"
+                }
+              ]
+            },
+            {
+              "type": "lithostitched:all_of",
+              "conditions": [
+                {
+                  "type": "lithostitched:slope",
+                  "height_difference": [
+                    64,
+                    2147483647
+                  ]
+                },
+                {
+                  "type": "minecraft:stone_depth",
+                  "offset": 126,
+                  "add_surface_depth": false,
+                  "secondary_depth_range": 0,
+                  "surface_type": "floor"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "then_run": {
+      "type": "minecraft:sequence",
+      "sequence": [
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "lithostitched:biome",
+            "biomes": "#stratafall:climate/cold"
+          },
+          "then_run": {
+            "type": "minecraft:sequence",
+            "sequence": [
+              {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:noise_threshold",
+                  "noise": "stratafall:province",
+                  "min_threshold": -1000000000.0,
+                  "max_threshold": 0.0
+                },
+                "then_run": {
+                  "type": "lithostitched:bandlands",
+                  "options": "stratafall:alpine"
+                }
+              },
+              {
+                "type": "lithostitched:bandlands",
+                "options": "stratafall:slate"
+              }
+            ]
+          }
+        },
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "lithostitched:biome",
+            "biomes": "#stratafall:climate/arid"
+          },
+          "then_run": {
+            "type": "minecraft:sequence",
+            "sequence": [
+              {
+                "type": "minecraft:condition",
+                "if_true": {
+                  "type": "minecraft:noise_threshold",
+                  "noise": "stratafall:province",
+                  "min_threshold": -1000000000.0,
+                  "max_threshold": 0.0
+                },
+                "then_run": {
+                  "type": "lithostitched:bandlands",
+                  "options": "stratafall:desert"
+                }
+              },
+              {
+                "type": "lithostitched:bandlands",
+                "options": "stratafall:redrock"
+              }
+            ]
+          }
+        },
+        {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "lithostitched:biome",
+            "biomes": "#stratafall:climate/tropical"
+          },
+          "then_run": {
+            "type": "lithostitched:bandlands",
+            "options": "stratafall:tropical"
+          }
+        },
+        {
+          "type": "minecraft:sequence",
+          "sequence": [
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:noise_threshold",
+                "noise": "stratafall:province",
+                "min_threshold": -1000000000.0,
+                "max_threshold": 0.0
+              },
+              "then_run": {
+                "type": "lithostitched:bandlands",
+                "options": "stratafall:granite"
+              }
+            },
+            {
+              "type": "lithostitched:bandlands",
+              "options": "stratafall:chalk"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
