@@ -1,0 +1,51 @@
+{
+  "base": {
+    "Name": "minecraft:andesite"
+  },
+  "bands": [
+    {
+      "type": "lithostitched:base",
+      "count": 7,
+      "size": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 2,
+        "max_inclusive": 5
+      },
+      "state": {
+        "Name": "minecraft:stone"
+      }
+    },
+    {
+      "type": "lithostitched:base",
+      "count": 6,
+      "size": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 3
+      },
+      "state": {
+        "Name": "minecraft:tuff"
+      }
+    },
+    {
+      "type": "lithostitched:base",
+      "count": 6,
+      "size": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 3
+      },
+      "state": {
+        "Name": "minecraft:deepslate"
+      }
+    },
+    {
+      "type": "lithostitched:base",
+      "count": 3,
+      "size": 1,
+      "state": {
+        "Name": "minecraft:calcite"
+      }
+    }
+  ]
+}

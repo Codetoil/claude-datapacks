@@ -1,0 +1,6 @@
+{
+  "type": "lithostitched:add_features",
+  "biomes": "#stratafall:springs_high",
+  "features": "stratafall:cliff_spring_high",
+  "step": "fluid_springs"
+}

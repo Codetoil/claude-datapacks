@@ -1,0 +1,188 @@
+{
+  "type": "lithostitched:composite",
+  "config": {
+    "placement_type": "never_cancel",
+    "features": [
+      {
+        "feature": "stratafall:ice_column",
+        "placement": [
+          {
+            "type": "lithostitched:offset",
+            "x_offset": 2,
+            "y_offset": 0,
+            "z_offset": 0
+          },
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_blocks",
+                  "offset": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "blocks": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:solid",
+                  "offset": [
+                    0,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "feature": "stratafall:ice_column",
+        "placement": [
+          {
+            "type": "lithostitched:offset",
+            "x_offset": 1,
+            "y_offset": 0,
+            "z_offset": 0
+          },
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_blocks",
+                  "offset": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "blocks": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:solid",
+                  "offset": [
+                    0,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "feature": "stratafall:ice_column",
+        "placement": [
+          {
+            "type": "lithostitched:offset",
+            "x_offset": 0,
+            "y_offset": 0,
+            "z_offset": 0
+          },
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_blocks",
+                  "offset": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "blocks": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:solid",
+                  "offset": [
+                    0,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "feature": "stratafall:ice_column",
+        "placement": [
+          {
+            "type": "lithostitched:offset",
+            "x_offset": -1,
+            "y_offset": 0,
+            "z_offset": 0
+          },
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_blocks",
+                  "offset": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "blocks": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:solid",
+                  "offset": [
+                    0,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "feature": "stratafall:ice_column",
+        "placement": [
+          {
+            "type": "lithostitched:offset",
+            "x_offset": -2,
+            "y_offset": 0,
+            "z_offset": 0
+          },
+          {
+            "type": "minecraft:block_predicate_filter",
+            "predicate": {
+              "type": "minecraft:all_of",
+              "predicates": [
+                {
+                  "type": "minecraft:matching_blocks",
+                  "offset": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "blocks": "minecraft:air"
+                },
+                {
+                  "type": "minecraft:solid",
+                  "offset": [
+                    0,
+                    0,
+                    1
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

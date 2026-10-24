@@ -1,0 +1,8 @@
+{
+  "type": "lithostitched:add_features",
+  "biomes": "#stratafall:falls/water_snowy",
+  "features": [
+    "stratafall:water_fall_snowy"
+  ],
+  "step": "fluid_springs"
+}

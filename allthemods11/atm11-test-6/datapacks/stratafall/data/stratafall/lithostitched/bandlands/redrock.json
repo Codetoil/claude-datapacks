@@ -1,0 +1,63 @@
+{
+  "base": {
+    "Name": "minecraft:terracotta"
+  },
+  "bands": [
+    {
+      "type": "lithostitched:base",
+      "count": 8,
+      "size": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 2,
+        "max_inclusive": 4
+      },
+      "state": {
+        "Name": "minecraft:orange_terracotta"
+      }
+    },
+    {
+      "type": "lithostitched:base",
+      "count": 5,
+      "size": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 3
+      },
+      "state": {
+        "Name": "minecraft:red_sandstone"
+      }
+    },
+    {
+      "type": "lithostitched:base",
+      "count": 4,
+      "size": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 2
+      },
+      "state": {
+        "Name": "minecraft:brown_terracotta"
+      }
+    },
+    {
+      "type": "lithostitched:base",
+      "count": 3,
+      "size": 1,
+      "state": {
+        "Name": "minecraft:white_terracotta"
+      }
+    },
+    {
+      "type": "lithostitched:base",
+      "count": 4,
+      "size": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 3
+      },
+      "state": {
+        "Name": "minecraft:granite"
+      }
+    }
+  ]
+}
