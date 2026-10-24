@@ -1,0 +1,11 @@
+{
+  "type": "lithostitched:add_features",
+  "biomes": "#stratafall:falls/ice_low",
+  "features": [
+    "stratafall:ice_fall_north_low",
+    "stratafall:ice_fall_south_low",
+    "stratafall:ice_fall_west_low",
+    "stratafall:ice_fall_east_low"
+  ],
+  "step": "fluid_springs"
+}

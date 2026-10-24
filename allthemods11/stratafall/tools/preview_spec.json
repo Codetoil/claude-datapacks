@@ -1,0 +1,50 @@
+{
+  "mountains-overview": {
+    "x": -1216,
+    "z": -1952,
+    "size": 192,
+    "facing": "north",
+    "scale": 3,
+    "label": "Frozen peaks and snowy slopes (-1216 -1952), looking north: banded rock faces and waterfalls"
+  },
+  "waterfall": {
+    "x": -2328,
+    "z": 1848,
+    "size": 64,
+    "facing": "south",
+    "scale": 5,
+    "label": "A waterfall in Terralith's rocky mountains (-2328 1848), looking south"
+  },
+  "strata-temperate": {
+    "x": -2049,
+    "z": 1700,
+    "size": 64,
+    "facing": "west",
+    "scale": 5,
+    "label": "37-block cliff in a maple forest (-2065 99 1700), looking west: granite palette"
+  },
+  "strata-arid": {
+    "x": -1422,
+    "z": -2333,
+    "size": 64,
+    "facing": "east",
+    "scale": 5,
+    "label": "Cliffs in baobab savanna (-1406 90 -2333), looking east: redrock and desert palettes"
+  },
+  "lava-falls": {
+    "x": -1368,
+    "z": -2328,
+    "size": 64,
+    "facing": "north",
+    "scale": 5,
+    "label": "Lava falls in Terralith's volcanic peaks (-1368 -2328), looking north"
+  },
+  "ice-falls": {
+    "x": -1182,
+    "z": -1888,
+    "size": 40,
+    "facing": "north",
+    "scale": 7,
+    "label": "Frozen peaks (-1182 -1902), looking north: banded rock, a waterfall, and frozen falls (the light-blue strips)"
+  }
+}
