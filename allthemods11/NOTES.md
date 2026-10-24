@@ -130,11 +130,11 @@ them from the bundle Codetoil linked on 2026-10-23: <https://www.curseforge.com/
   `neoforge-26.1.2.109-installer.jar`, `user_jvm_args.txt`, `server-icon.png`.
 - Created from those: `libraries/` (the NeoForge installer, run by `startserver.sh` or
   `java -jar neoforge-26.1.2.109-installer.jar --installServer`), `defaultconfigs/`, and configs rewritten on load.
-- **Changes made after install are not in the current tree.** When the folder was copied (2026-10-23), 326 of the
+- **Changes made after install are not in the repository.** When the folder was copied (2026-10-23), 326 of the
   1,742 files in `config/`, `kubejs/` and `local/` were newer than the installer (configs the server rewrote on load,
-  plus any edits, e.g. `config/tectonic.json`). Commit `978b046` still has that state:
-  `git restore --source=978b046 -- allthemods11/config allthemods11/kubejs allthemods11/local` writes it over the
-  bundle (working tree only, so the files stay untracked).
+  plus any edits, e.g. `config/tectonic.json`). The first commit held that state until 2026-10-24, when the history
+  was rewritten at Codetoil's request to remove the bundle files from every commit; restore it from the original
+  folder on Codetoil's machine.
 - Secrets stay out of git: `server.properties` has a redacted `server.properties.example`; `management-keystore.p12`
   and `management-cert.pem` exist only on Codetoil's machine (and in copies made from it), not in the repo.
 
