@@ -1,0 +1,10 @@
+# name cx cz radius_blocks   (chosen in the baseline world atm11-test-0, seed 2046688620605974876)
+spawn -736 528 256
+forest -1312 -240 192
+savanna -1312 -2032 192
+jungle -2848 -1616 192
+badlands 800 -2352 192
+windswept 800 720 192
+peaks -2176 1968 256
+meadow -1920 240 192
+volcano -1376 -2400 128

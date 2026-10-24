@@ -31,3 +31,6 @@ logs/
 crash-reports/
 __pycache__/
 *.pyc
+
+# Stratafall test-run console logs (tools/ write them here).
+/allthemods11/stratafall/test-logs/

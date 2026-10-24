@@ -5,7 +5,9 @@ Stratafall leaves the terrain shape to Tectonic + Terralith + Regions Unexplored
 - Rock strata: steep faces (in every direction, unlike vanilla's north/east-only `steep`) become banded rock instead
   of grass, snow or dirt. Each climate has two palettes; a large-scale "province" noise picks one of them, so a
   mountain range keeps one look and the next range may have another.
-- Cliff springs: water springs aimed just below the surface, so they open in cliff faces and become waterfalls.
+- Falls from cliff faces, only where there is a real drop in front of the face:
+  waterfalls (springs) in temperate, tropical and cold-but-not-snowy biomes, frozen falls (curtains of packed ice)
+  in snowy biomes, lava falls in Terralith's volcanic biomes. None in deserts and savannas.
 
 Everything is additive through lithostitched worldgen modifiers (a prepended surface rule and add_features), so no
 noise settings, biome or other mod file is replaced. Biome lists are resolved from the pack's generated reports
@@ -26,17 +28,24 @@ PACK_FORMAT = 101  # data_major of 26.1.2 (version.json: data_major 101, data_mi
 
 PARAMS = {
     # Steepness tiers: (min height difference between the 4 neighbouring columns, max stone depth painted).
-    # A column whose neighbours differ by d blocks exposes a face up to d blocks tall, so the painted depth grows
-    # with the tier. The lowest tier sets how steep a slope must be to lose its soil/snow cover.
-    "strata_tiers": [(5, 8), (9, 16), (17, 32), (33, 64)],
+    # A column whose neighbours differ by d blocks exposes a face up to d blocks tall, so each tier paints down to
+    # the next tier's threshold. The first threshold (4, like vanilla's steep) decides what counts as a cliff.
+    "strata_tiers": [(4, 7), (8, 15), (16, 31), (32, 63), (64, 127)],
     # Lower runs first; regions_unexplored's surface rules use the default 1000.
     "strata_priority": 900,
     # Province noise: picks one of the two palettes of a climate. firstOctave -10 => provinces ~1-2 km across.
     "province_noise": {"firstOctave": -10, "amplitudes": [1.0, 1.0]},
-    # Cliff springs: attempts per chunk, depth below the surface they aim at, allowed absolute heights.
-    "spring_attempts": {"high": 10, "low": 3},
-    "spring_depth": (4, 14),
-    "spring_y": (72, 400),
+    # Falls. attempts = tries per chunk ("ice" per facing direction, 4 directions); depth = how far below the
+    # column's surface the opening is aimed; drop = open air required in front of / below the opening.
+    # v2 needed air 6 blocks below an opening 3-16 blocks deep (a 10+ block step between neighbouring columns),
+    # which almost never happens; v1 had no check and flooded 1-2 block steps. drop 3 sits between the two.
+    # Only ~3-8 in 10,000 random (column, depth) tries hit a valid opening (measured with tools/spring_sites.py in
+    # atm11-test-3), so the counts are high; each try costs a handful of block reads.
+    # Targets: ~1 waterfall per 16 mountain chunks, ~1 per 64 lowland chunks.
+    "water": {"attempts": {"high": 96, "low": 32, "snowy": 32}, "depth": (2, 8), "drop": 3, "y": (72, 400)},
+    "ice": {"attempts": {"high": 12, "low": 4}, "depth": (1, 3), "drop": 3, "y": (80, 400),
+            "length": (4, 14), "tip": (1, 2)},
+    "lava": {"attempts": 96, "depth": (2, 8), "drop": 3, "y": (64, 400)},
 }
 
 # Banded palettes (lithostitched bandlands: a 192-entry array filled with `base`, then each band placed `count`
@@ -69,15 +78,15 @@ EXCLUDE_TAGS = ["#c:is_ocean", "#c:is_deep_ocean", "#c:is_shallow_ocean", "#mine
                 "#minecraft:is_deep_ocean", "#c:is_river", "#minecraft:is_river", "#c:is_beach", "#minecraft:is_beach",
                 "#c:is_cave", "#c:is_underground", "#c:is_badlands", "#minecraft:is_badlands", "#c:is_mushroom",
                 "#c:is_void"]
+VOLCANIC = ["terralith:volcanic_peaks", "terralith:volcanic_crater", "terralith:caldera", "terralith:basalt_cliffs"]
 EXCLUDE_IDS = [
     # Terralith biomes with their own cliff or spire surfaces
-    "terralith:amethyst_canyon", "terralith:basalt_cliffs", "terralith:bryce_canyon", "terralith:caldera",
-    "terralith:desert_canyon", "terralith:desert_spires", "terralith:frozen_cliffs", "terralith:glacial_chasm",
-    "terralith:granite_cliffs", "terralith:painted_mountains", "terralith:savanna_badlands",
-    "terralith:snowy_badlands", "terralith:stony_spires", "terralith:volcanic_crater", "terralith:volcanic_peaks",
-    "terralith:warped_mesa", "terralith:white_cliffs", "terralith:white_mesa", "terralith:windswept_spires",
-    "terralith:yellowstone", "terralith:yosemite_cliffs", "terralith:alpha_islands", "terralith:alpha_islands_winter",
-    "terralith:mirage_isles", "terralith:red_oasis",
+    "terralith:amethyst_canyon", "terralith:bryce_canyon", "terralith:desert_canyon", "terralith:desert_spires",
+    "terralith:frozen_cliffs", "terralith:glacial_chasm", "terralith:granite_cliffs", "terralith:painted_mountains",
+    "terralith:savanna_badlands", "terralith:snowy_badlands", "terralith:stony_spires", "terralith:warped_mesa",
+    "terralith:white_cliffs", "terralith:white_mesa", "terralith:windswept_spires", "terralith:yellowstone",
+    "terralith:yosemite_cliffs", "terralith:alpha_islands", "terralith:alpha_islands_winter", "terralith:mirage_isles",
+    "terralith:red_oasis", *VOLCANIC,
     # Regions Unexplored
     "regions_unexplored:chalk_cliffs", "regions_unexplored:spires", "regions_unexplored:inferno",
     "regions_unexplored:icy_heights",
@@ -89,16 +98,20 @@ CLIMATE_TAGS = {
     "arid": ["#c:is_desert", "#c:is_savanna", "#c:is_sandy", "#c:is_dry/overworld"],
     "tropical": ["#c:is_jungle", "#c:is_tree/jungle", "#c:is_wet/overworld"],
 }
-HIGH_SPRING_TAGS = ["#c:is_mountain", "#minecraft:is_mountain", "#c:is_hill", "#minecraft:is_hill", "#c:is_plateau",
-                    "#c:is_windswept", "#c:is_mountain/slope", "#c:is_mountain/peak"]
-HIGH_SPRING_ID_WORDS = {"highlands", "mountain", "mountains", "peaks", "slopes", "cliffs", "heights", "hills", "plateau"}
+SNOWY_TAGS = ["#c:is_snowy", "#c:is_icy", "#c:is_snowy_plains"]
+HIGH_TAGS = ["#c:is_mountain", "#minecraft:is_mountain", "#c:is_hill", "#minecraft:is_hill", "#c:is_plateau",
+             "#c:is_windswept", "#c:is_mountain/slope", "#c:is_mountain/peak"]
+HIGH_ID_WORDS = {"highlands", "mountain", "mountains", "peaks", "slopes", "cliffs", "heights", "hills", "plateau"}
 
-SPRING_BLOCKS = ["minecraft:stone", "minecraft:granite", "minecraft:diorite", "minecraft:andesite",
-                 "minecraft:deepslate", "minecraft:tuff", "minecraft:calcite", "minecraft:dirt", "minecraft:coarse_dirt",
-                 "minecraft:grass_block", "minecraft:podzol", "minecraft:snow_block", "minecraft:powder_snow",
-                 "minecraft:packed_ice", "minecraft:dripstone_block", "minecraft:moss_block", "minecraft:packed_mud",
-                 "minecraft:cobblestone", "minecraft:mossy_cobblestone", "minecraft:cobbled_deepslate",
-                 "minecraft:gravel", "minecraft:clay", "minecraft:smooth_basalt"]
+ROCKS = ["minecraft:stone", "minecraft:granite", "minecraft:diorite", "minecraft:andesite", "minecraft:deepslate",
+         "minecraft:tuff", "minecraft:calcite", "minecraft:dripstone_block", "minecraft:cobblestone",
+         "minecraft:mossy_cobblestone", "minecraft:cobbled_deepslate", "minecraft:smooth_basalt"]
+SPRING_BLOCKS = ROCKS + ["minecraft:dirt", "minecraft:coarse_dirt", "minecraft:grass_block", "minecraft:podzol",
+                         "minecraft:snow_block", "minecraft:powder_snow", "minecraft:packed_ice", "minecraft:moss_block",
+                         "minecraft:packed_mud", "minecraft:gravel", "minecraft:clay"]
+LAVA_BLOCKS = ROCKS + ["minecraft:basalt", "minecraft:polished_basalt", "minecraft:blackstone", "minecraft:magma_block",
+                       "minecraft:obsidian", "minecraft:netherrack", "minecraft:coarse_dirt", "minecraft:gravel"]
+DIRECTIONS = {"north": (0, -1), "south": (0, 1), "west": (-1, 0), "east": (1, 0)}
 
 
 def resolve(tags, entries):
@@ -115,6 +128,25 @@ def uniform(lo, hi):
 def tag_json(biomes):
     vals = [b if b.startswith("minecraft:") else {"id": b, "required": False} for b in sorted(biomes)]
     return {"replace": False, "values": vals}
+
+
+def air(dx, dy, dz):
+    return {"type": "minecraft:matching_blocks", "offset": [dx, dy, dz], "blocks": "minecraft:air"}
+
+
+def open_drop(dx, dz, drop):
+    """Air in front of the opening (dx, dz), halfway down and `drop` blocks below it: a free fall, not a step."""
+    return {"type": "minecraft:all_of", "predicates": [air(dx, -k, dz) for k in sorted({0, drop // 2, drop})]}
+
+
+def surface_aim(attempts, depth, y_range):
+    lo_d, hi_d = depth
+    return [{"type": "minecraft:count", "count": attempts},
+            {"type": "minecraft:in_square"},
+            {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+            {"type": "minecraft:random_offset", "xz_spread": 0, "y_spread": uniform(-hi_d, -lo_d)},
+            {"type": "lithostitched:condition", "condition": {
+                "type": "lithostitched:height_filter", "range_type": "absolute", "permitted_range": list(y_range)}}]
 
 
 def main():
@@ -134,10 +166,12 @@ def main():
             if b in resolve(tags, CLIMATE_TAGS[climate]):
                 climate_of[b] = climate
                 break
-    high = {b for b in strata if b in resolve(tags, HIGH_SPRING_TAGS)
-            or HIGH_SPRING_ID_WORDS & set(b.split(":", 1)[1].split("_"))}
-    springs_high = {b for b in high if climate_of[b] != "arid"}
-    springs_low = {b for b in strata if b not in high and climate_of[b] != "arid"}
+    high = {b for b in strata if b in resolve(tags, HIGH_TAGS) or HIGH_ID_WORDS & set(b.split(":", 1)[1].split("_"))}
+    snowy = strata & resolve(tags, SNOWY_TAGS)
+    wet = {b for b in strata if climate_of[b] != "arid" and b not in snowy}
+    # Snowy mountains get frozen falls and, at a lower rate, running ones; snowy lowlands only frozen ones.
+    falls = {"water_high": wet & high, "water_low": wet - high, "water_snowy": snowy & high,
+             "ice_high": snowy & high, "ice_low": snowy - high, "lava": overworld & set(VOLCANIC)}
 
     out = args.out
     if out.exists():
@@ -147,17 +181,19 @@ def main():
     def put(rel, obj):
         files[rel] = obj
 
-    put("pack.mcmeta", {"pack": {"description": "Stratafall: rock strata on cliffs and waterfalls for All The Mods 11",
+    put("pack.mcmeta", {"pack": {"description": "Stratafall: rock strata on cliffs, waterfalls, ice falls and lava falls "
+                                                "for All The Mods 11",
                                  "min_format": PACK_FORMAT, "max_format": PACK_FORMAT}})
     d = f"data/{NS}"
     put(f"{d}/tags/worldgen/biome/strata.json", tag_json(strata))
     for climate in ("cold", "arid", "tropical"):
         put(f"{d}/tags/worldgen/biome/climate/{climate}.json",
             tag_json({b for b, c in climate_of.items() if c == climate}))
-    put(f"{d}/tags/worldgen/biome/springs_high.json", tag_json(springs_high))
-    put(f"{d}/tags/worldgen/biome/springs_low.json", tag_json(springs_low))
+    for name, biomes in falls.items():
+        put(f"{d}/tags/worldgen/biome/falls/{name}.json", tag_json(biomes))
     put(f"{d}/worldgen/noise/province.json", PARAMS["province_noise"])
 
+    # --- rock strata -----------------------------------------------------------------------------------------
     for name, (base, bands) in PALETTES.items():
         put(f"{d}/lithostitched/bandlands/{name}.json", {
             "base": {"Name": base},
@@ -201,37 +237,80 @@ def main():
         "type": "lithostitched:add_surface_rule", "priority": PARAMS["strata_priority"],
         "injection_type": "prepend", "levels": ["minecraft:overworld"], "surface_rule": strata_rule})
 
-    put(f"{d}/worldgen/configured_feature/cliff_spring.json", {
-        "type": "minecraft:spring_feature",
-        "config": {"state": {"Name": "minecraft:water", "Properties": {"falling": "true"}},
-                   "requires_block_below": True, "rock_count": 4, "hole_count": 1,
-                   "valid_blocks": SPRING_BLOCKS + sorted({blk for _, (base, bands) in PALETTES.items()
-                                                          for blk in [base] + [b[0] for b in bands]} - set(SPRING_BLOCKS))}})
-    lo_d, hi_d = PARAMS["spring_depth"]
-    y0, y1 = PARAMS["spring_y"]
-    for kind, attempts in PARAMS["spring_attempts"].items():
-        put(f"{d}/worldgen/placed_feature/cliff_spring_{kind}.json", {
-            "feature": f"{NS}:cliff_spring",
-            "placement": [
-                {"type": "minecraft:count", "count": attempts},
-                {"type": "minecraft:in_square"},
-                {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
-                {"type": "minecraft:random_offset", "xz_spread": 0, "y_spread": uniform(-hi_d, -lo_d)},
-                {"type": "lithostitched:condition", "condition": {
-                    "type": "lithostitched:height_filter", "range_type": "absolute", "permitted_range": [y0, y1]}},
-                {"type": "minecraft:biome"}]})
-        put(f"{d}/lithostitched/worldgen_modifier/cliff_springs_{kind}.json", {
-            "type": "lithostitched:add_features", "biomes": f"#{NS}:springs_{kind}",
-            "features": f"{NS}:cliff_spring_{kind}", "step": "fluid_springs"})
+    # --- waterfalls and lava falls: springs that open in a face with open air below ---------------------------
+    palette_blocks = sorted({blk for base, bands in PALETTES.values() for blk in [base] + [b[0] for b in bands]})
+    for fluid, valid in (("water", SPRING_BLOCKS + [b for b in palette_blocks if b not in SPRING_BLOCKS]),
+                         ("lava", LAVA_BLOCKS)):
+        put(f"{d}/worldgen/configured_feature/{fluid}_fall.json", {
+            "type": "minecraft:spring_feature",
+            "config": {"state": {"Name": f"minecraft:{fluid}", "Properties": {"falling": "true"}},
+                       "requires_block_below": True, "rock_count": 4, "hole_count": 1, "valid_blocks": valid}})
+    sheer = lambda drop: {"type": "minecraft:block_predicate_filter", "predicate": {
+        "type": "minecraft:any_of", "predicates": [open_drop(dx, dz, drop) for dx, dz in DIRECTIONS.values()]}}
+    modifiers = {}
+    for kind in ("high", "low", "snowy"):
+        p = PARAMS["water"]
+        put(f"{d}/worldgen/placed_feature/water_fall_{kind}.json", {
+            "feature": f"{NS}:water_fall",
+            "placement": surface_aim(p["attempts"][kind], p["depth"], p["y"]) + [sheer(p["drop"]), {"type": "minecraft:biome"}]})
+        modifiers[f"water_falls_{kind}"] = (f"#{NS}:falls/water_{kind}", [f"{NS}:water_fall_{kind}"])
+    p = PARAMS["lava"]
+    put(f"{d}/worldgen/placed_feature/lava_fall.json", {
+        "feature": f"{NS}:lava_fall",
+        "placement": surface_aim(p["attempts"], p["depth"], p["y"]) + [sheer(p["drop"]), {"type": "minecraft:biome"}]})
+    modifiers["lava_falls"] = (f"#{NS}:falls/lava", [f"{NS}:lava_fall"])
+
+    # --- frozen falls: a curtain of packed ice (three columns of random length) hanging in front of a face -------
+    p = PARAMS["ice"]
+    put(f"{d}/worldgen/configured_feature/ice_column.json", {
+        "type": "minecraft:block_column",
+        "config": {"direction": "down", "prioritize_tip": True,
+                   "allowed_placement": {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"},
+                   "layers": [{"height": uniform(*p["length"]),
+                               "provider": {"type": "minecraft:simple_state_provider",
+                                            "state": {"Name": "minecraft:packed_ice"}}},
+                              {"height": uniform(*p["tip"]),
+                               "provider": {"type": "minecraft:simple_state_provider",
+                                            "state": {"Name": "minecraft:blue_ice"}}}]}})
+    for face, (dx, dz) in DIRECTIONS.items():
+        # The face looks toward (dx, dz): its rock is at -(dx, dz) from the hanging column.
+        side = (dz, dx)  # perpendicular, along the face
+        behind = {"type": "minecraft:solid", "offset": [-dx, 0, -dz]}
+
+        def column_at(ox, oz):
+            return {"feature": f"{NS}:ice_column", "placement": [
+                {"type": "lithostitched:offset", "x_offset": ox, "y_offset": 0, "z_offset": oz},
+                {"type": "minecraft:block_predicate_filter", "predicate": {
+                    "type": "minecraft:all_of", "predicates": [air(0, 0, 0), behind]}}]}
+        put(f"{d}/worldgen/configured_feature/ice_fall_{face}.json", {
+            "type": "lithostitched:composite",
+            "config": {"placement_type": "never_cancel",
+                       "features": [column_at(0, 0), column_at(*side), column_at(-side[0], -side[1])]}})
+        for kind in ("high", "low"):
+            put(f"{d}/worldgen/placed_feature/ice_fall_{face}_{kind}.json", {
+                "feature": f"{NS}:ice_fall_{face}",
+                "placement": surface_aim(p["attempts"][kind], p["depth"], p["y"]) + [
+                    {"type": "minecraft:block_predicate_filter", "predicate": {
+                        "type": "minecraft:all_of", "predicates": [
+                            {"type": "minecraft:solid"}, open_drop(dx, dz, p["drop"])]}},
+                    {"type": "lithostitched:offset", "x_offset": dx, "y_offset": 0, "z_offset": dz},
+                    {"type": "minecraft:biome"}]})
+    for kind in ("high", "low"):
+        modifiers[f"ice_falls_{kind}"] = (f"#{NS}:falls/ice_{kind}",
+                                          [f"{NS}:ice_fall_{face}_{kind}" for face in DIRECTIONS])
+
+    for name, (biomes, features) in modifiers.items():
+        put(f"{d}/lithostitched/worldgen_modifier/{name}.json", {
+            "type": "lithostitched:add_features", "biomes": biomes, "features": features, "step": "fluid_springs"})
 
     for rel, obj in files.items():
-        p = out / rel
-        p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(obj, indent=2) + "\n")
+        path = out / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(obj, indent=2) + "\n")
     counts = {c: sum(1 for v in climate_of.values() if v == c) for c in CLIMATES}
     print(f"wrote {len(files)} files to {out}")
-    print(f"strata biomes: {len(strata)} of {len(overworld)} overworld ({counts}); "
-          f"springs: {len(springs_high)} high, {len(springs_low)} low")
+    print(f"strata biomes: {len(strata)} of {len(overworld)} overworld ({counts})")
+    print("falls: " + ", ".join(f"{k} {len(v)}" for k, v in falls.items()))
 
 
 if __name__ == "__main__":
