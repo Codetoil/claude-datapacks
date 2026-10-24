@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:spring_feature",
+  "config": {
+    "state": {
+      "Name": "minecraft:lava",
+      "Properties": {
+        "falling": "true"
+      }
+    },
+    "requires_block_below": true,
+    "rock_count": 4,
+    "hole_count": 1,
+    "valid_blocks": [
+      "minecraft:stone",
+      "minecraft:granite",
+      "minecraft:diorite",
+      "minecraft:andesite",
+      "minecraft:deepslate",
+      "minecraft:tuff",
+      "minecraft:calcite",
+      "minecraft:dripstone_block",
+      "minecraft:cobblestone",
+      "minecraft:mossy_cobblestone",
+      "minecraft:cobbled_deepslate",
+      "minecraft:smooth_basalt",
+      "minecraft:basalt",
+      "minecraft:polished_basalt",
+      "minecraft:blackstone",
+      "minecraft:magma_block",
+      "minecraft:obsidian",
+      "minecraft:netherrack",
+      "minecraft:coarse_dirt",
+      "minecraft:gravel"
+    ]
+  }
+}
