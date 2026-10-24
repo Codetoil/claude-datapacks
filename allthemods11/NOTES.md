@@ -137,3 +137,16 @@ them from the bundle Codetoil linked on 2026-10-23: <https://www.curseforge.com/
   bundle (working tree only, so the files stay untracked).
 - Secrets stay out of git: `server.properties` has a redacted `server.properties.example`; `management-keystore.p12`
   and `management-cert.pem` exist only on Codetoil's machine (and in copies made from it), not in the repo.
+
+## Worldgen datapack: Stratafall (2026-10-24)
+
+Codetoil's request "Make me a really good worldgen datapack for ATM11. Your choice on the details. keep the test
+worlds" is answered by **`stratafall/`** (built by `stratafall/build.py` into `stratafall/pack/`; full notes, design
+reasons and measurements in `stratafall/NOTES.md`). In short: rock strata on steep faces in every direction
+(instead of grass/snow/ice on cliffs), plus waterfalls, frozen falls and lava falls from cliff faces, all added
+through lithostitched modifiers without replacing Tectonic/Terralith/RU files.
+
+- Not installed in `world`. To use it, copy `stratafall/pack` to `<world>/datapacks/stratafall` before the world's
+  first start (in an existing world it only changes new chunks and leaves seams).
+- Test worlds (keep them): `atm11-test-0` (no pack, baseline) and `atm11-test-1` ... (one per iteration), all on
+  `world`'s seed. Started with `--world <folder>` (server.properties untouched). Tools in `stratafall/tools/`.

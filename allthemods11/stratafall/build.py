@@ -43,8 +43,10 @@ PARAMS = {
     # atm11-test-3), so the counts are high; each try costs a handful of block reads.
     # Targets: ~1 waterfall per 16 mountain chunks, ~1 per 64 lowland chunks.
     "water": {"attempts": {"high": 96, "low": 32, "snowy": 32}, "depth": (2, 8), "drop": 3, "y": (72, 400)},
-    "ice": {"attempts": {"high": 12, "low": 4}, "depth": (1, 3), "drop": 3, "y": (80, 400),
-            "length": (4, 14), "tip": (1, 2)},
+    # v4's 3-wide curtains on 3-block drops came out 6-8 blocks long and easy to miss next to waterfalls; v5 hangs
+    # 5-wide curtains on 4+ block drops (the columns still stop at the first ledge below).
+    "ice": {"attempts": {"high": 12, "low": 4}, "depth": (1, 3), "drop": 4, "y": (80, 400),
+            "length": (6, 16), "tip": (1, 2), "width": 5},
     "lava": {"attempts": 96, "depth": (2, 8), "drop": 3, "y": (64, 400)},
 }
 
@@ -260,7 +262,7 @@ def main():
         "placement": surface_aim(p["attempts"], p["depth"], p["y"]) + [sheer(p["drop"]), {"type": "minecraft:biome"}]})
     modifiers["lava_falls"] = (f"#{NS}:falls/lava", [f"{NS}:lava_fall"])
 
-    # --- frozen falls: a curtain of packed ice (three columns of random length) hanging in front of a face -------
+    # --- frozen falls: a curtain of packed ice (columns of random length) hanging in front of a face -------------
     p = PARAMS["ice"]
     put(f"{d}/worldgen/configured_feature/ice_column.json", {
         "type": "minecraft:block_column",
@@ -282,10 +284,11 @@ def main():
                 {"type": "lithostitched:offset", "x_offset": ox, "y_offset": 0, "z_offset": oz},
                 {"type": "minecraft:block_predicate_filter", "predicate": {
                     "type": "minecraft:all_of", "predicates": [air(0, 0, 0), behind]}}]}
+        half = p["width"] // 2
         put(f"{d}/worldgen/configured_feature/ice_fall_{face}.json", {
             "type": "lithostitched:composite",
             "config": {"placement_type": "never_cancel",
-                       "features": [column_at(0, 0), column_at(*side), column_at(-side[0], -side[1])]}})
+                       "features": [column_at(side[0] * k, side[1] * k) for k in range(-half, half + 1)]}})
         for kind in ("high", "low"):
             put(f"{d}/worldgen/placed_feature/ice_fall_{face}_{kind}.json", {
                 "feature": f"{NS}:ice_fall_{face}",
