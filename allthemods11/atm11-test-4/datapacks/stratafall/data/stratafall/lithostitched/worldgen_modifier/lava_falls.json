@@ -1,0 +1,8 @@
+{
+  "type": "lithostitched:add_features",
+  "biomes": "#stratafall:falls/lava",
+  "features": [
+    "stratafall:lava_fall"
+  ],
+  "step": "fluid_springs"
+}

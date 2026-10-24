@@ -28,11 +28,11 @@ TEX = {
     "terracotta": (152, 94, 67), "orange_terracotta": (161, 83, 37), "white_terracotta": (209, 178, 161),
     "brown_terracotta": (77, 51, 35), "light_gray_terracotta": (135, 107, 98), "red_terracotta": (143, 61, 46),
     "yellow_terracotta": (186, 133, 35), "snow_block": (249, 254, 254), "snow": (249, 254, 254),
-    "powder_snow": (248, 253, 253), "packed_ice": (141, 180, 250), "ice": (145, 183, 253), "blue_ice": (116, 167, 253),
+    "powder_snow": (248, 253, 253), "packed_ice": (178, 214, 255), "ice": (190, 222, 255), "blue_ice": (120, 190, 255),
     "dirt": (134, 96, 67), "coarse_dirt": (119, 85, 59), "grass_block": (98, 150, 60), "podzol": (91, 63, 24),
     "gravel": (131, 127, 126), "cobblestone": (127, 127, 127), "mossy_cobblestone": (110, 118, 94),
     "sand": (219, 207, 163), "red_sand": (190, 102, 33), "clay": (160, 166, 179), "mud": (60, 57, 61),
-    "water": (63, 118, 228), "lava": (207, 92, 20), "smooth_basalt": (72, 72, 78), "basalt": (80, 81, 86),
+    "water": (38, 82, 205), "lava": (225, 95, 15), "smooth_basalt": (72, 72, 78), "basalt": (80, 81, 86),
     "blackstone": (42, 36, 41), "obsidian": (15, 10, 24), "bedrock": (85, 85, 85),
 }
 SKY = (160, 195, 235)
