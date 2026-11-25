@@ -157,9 +157,10 @@ The files that come with the All The Mods 11 server bundle are gitignored; resto
   `config/`, `kubejs/`, `local/`, `mods/`, `startserver.bat`, `startserver.sh`, `neoforge-26.1.2.109-installer.jar`,
   `user_jvm_args.txt`, `server-icon.png`; `libraries/` from `java -jar neoforge-26.1.2.109-installer.jar --installServer`.
   When the folder was copied (2026-10-23), 326 of the 1,742 files in `config/`, `kubejs/` and `local/` were newer than
-  the installer (configs the server rewrote on load, plus any edits). Commit `978b046` was said to hold that state
-  (`git restore --source=978b046 -- allthemods11/config allthemods11/kubejs allthemods11/local`), but it is not in
-  `Codetoil-Agentic-Dev/claude-datapacks`' history (checked 2026-11-25), and that `kubejs/` doesn't apply to 0.15.0-beta.
+  the installer (configs the server rewrote on load, plus any edits). **That post-install state is not in the
+  repository:** the first commit held it until 2026-10-24, when the history was rewritten at Codetoil's request to
+  remove the bundle files from every commit; restore it from the original folder on Codetoil's machine. Its
+  `kubejs/` doesn't apply to 0.15.0-beta.
 - Secrets stay out of git: `server.properties` has a redacted `server.properties.example`; `management-keystore.p12`
   and `management-cert.pem` exist only on Codetoil's machine (and in copies made from it), not in the repo. In a cloud
   copy, make `server.properties` from the example with a fresh `rcon.password` (the Stratafall tools use RCON) and
