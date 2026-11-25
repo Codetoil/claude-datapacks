@@ -7,7 +7,7 @@ N=$HERE
 $N/run_server.sh "$w" &
 sleep 5
 $N/wait_ready.sh | tail -4
-L=$(ls -t $N/logs/*.log | head -1)
+L=$(ls -t $LOGS/*.log | head -1)
 echo "--- pack-related log lines:"
 grep -iE 'stratafall|lithostitched.*(error|fail|invalid)|Unknown (registry|key|element)' "$L" | grep -v DEBUG | cut -c1-260 | head -15
 echo "--- pregen:"
