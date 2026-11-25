@@ -80,3 +80,89 @@ ALL        lava y64                     5129         5221         5222         5
 ALL        packed ice y80             121369       116046       110734       110922       111290       110909       111331
 ALL        blue ice y80                67878        67145        66768        67859        67943        67476        68244
 
+
+All The Mods 11 0.15.0-beta (2026-11-25): atm11-test-6 (stats recomputed on 2026-11-25; identical to the test-6 column above)
+vs atm11-0.15-test-6 (pack v6 on 0.15.0-beta, same seed, samples and 60 s fluid tick)
+
+sample     metric               atm11-test-6 atm11-0.15-test-6
+--------------------------------------------------------------
+badlands   rock% cliffs(7+)             40.4         35.0
+badlands   rock% steep(4-6)             41.7         40.7
+badlands   flowing water y72             168          317
+badlands   surface water cols             72          139
+badlands   lava y64                      195          195
+badlands   packed ice y80               4581         4581
+badlands   blue ice y80                  368          362
+
+forest     rock% cliffs(7+)             76.6         76.0
+forest     rock% steep(4-6)             84.9         83.7
+forest     flowing water y72             338          334
+forest     surface water cols            122          124
+forest     lava y64                       68           68
+forest     packed ice y80               7578         7393
+forest     blue ice y80                15048        14893
+
+jungle     rock% cliffs(7+)             52.4         51.4
+jungle     rock% steep(4-6)             42.8         37.1
+jungle     flowing water y72               0            0
+jungle     surface water cols              0            0
+jungle     lava y64                       57           57
+jungle     packed ice y80                  0            0
+jungle     blue ice y80                    0            0
+
+meadow     rock% cliffs(7+)             69.1         62.7
+meadow     rock% steep(4-6)             77.4         75.3
+meadow     flowing water y72             264          341
+meadow     surface water cols             25           79
+meadow     lava y64                      343          343
+meadow     packed ice y80                  0            0
+meadow     blue ice y80                    0            0
+
+peaks      rock% cliffs(7+)             71.9         74.0
+peaks      rock% steep(4-6)             79.5         79.1
+peaks      flowing water y72            8139         7948
+peaks      surface water cols           1892         1872
+peaks      lava y64                     3023         3039
+peaks      packed ice y80              31496        31510
+peaks      blue ice y80                  144          152
+
+savanna    rock% cliffs(7+)             69.8         68.1
+savanna    rock% steep(4-6)             77.4         77.5
+savanna    flowing water y72            5704         6649
+savanna    surface water cols           2775         3185
+savanna    lava y64                      528          553
+savanna    packed ice y80              28461        28428
+savanna    blue ice y80                  176          176
+
+spawn      rock% cliffs(7+)             61.8         59.9
+spawn      rock% steep(4-6)             68.6         66.2
+spawn      flowing water y72            1185         1176
+spawn      surface water cols            452          450
+spawn      lava y64                      847          842
+spawn      packed ice y80              31892        31740
+spawn      blue ice y80                52508        52227
+
+volcano    rock% cliffs(7+)             44.0         48.3
+volcano    rock% steep(4-6)             51.6         52.5
+volcano    flowing water y72             364         2682
+volcano    surface water cols            199         1440
+volcano    lava y64                      818          818
+volcano    packed ice y80                  0            0
+volcano    blue ice y80                    0            0
+
+windswept  rock% cliffs(7+)              0.0          0.0
+windswept  rock% steep(4-6)             39.6            0
+windswept  flowing water y72              12           12
+windswept  surface water cols              2            2
+windswept  lava y64                        0            0
+windswept  packed ice y80               7323         7323
+windswept  blue ice y80                    0            0
+
+ALL        rock% cliffs(7+)             63.3         63.4
+ALL        rock% steep(4-6)             72.1         71.2
+ALL        flowing water y72           16174        19459
+ALL        surface water cols           5539         7291
+ALL        lava y64                     5879         5915
+ALL        packed ice y80             111331       110975
+ALL        blue ice y80                68244        67810
+

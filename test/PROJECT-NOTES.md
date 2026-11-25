@@ -139,6 +139,8 @@ and the watcher instead).
 
 Codetoil's next target: datapacks for **All The Mods 11** (MC 26.1.2, NeoForge 26.1.2.109, 280 mods, KubeJS 8.0.6,
 **data pack format 101.1**, not the 26.3 server's 121.0).
+(Since 2026-11-25 the pack is 0.15.0-beta: NeoForge 26.1.2.126, 300 mod jars, KubeGroovy instead of KubeJS; see
+`allthemods11/NOTES.md`. The rest of this section describes the older bundle.)
 **Full ATM11 handoff: `~/datapacks/allthemods11/NOTES.md`** (start/stop, remote access, Claude setup, toolkit,
 reports, 26.1.2 facts, test results). State at 17:12: the ATM11 server is **stopped** (ran 16:17–17:12, stopped
 cleanly over RCON at Codetoil's request), so either server can start (only one at a time); every toolkit

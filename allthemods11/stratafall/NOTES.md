@@ -1,6 +1,7 @@
 # Stratafall: cliffs and falls for All The Mods 11
 
-A worldgen datapack for the ATM11 server (Minecraft 26.1.2, NeoForge 26.1.2.109, data pack format 101).
+A worldgen datapack for the ATM11 server (Minecraft 26.1.2, data pack format 101; made on NeoForge 26.1.2.109, checked
+on All The Mods 11 0.15.0-beta with NeoForge 26.1.2.126, see "All The Mods 11 0.15.0-beta").
 It leaves the shape of the land to Tectonic, Terralith and Regions Unexplored and adds what their cliffs lack:
 
 - **Rock strata.** Steep faces turn into banded rock instead of grass, snow, dirt or ice, on every side of a
@@ -80,6 +81,8 @@ Test worlds live next to `world` in `allthemods11/` and are kept, like Vastlands
 `data/minecraft/world_gen_settings.dat` (26.1.2 keeps the seed there, not in level.dat) and is started with the
 server's `--world` option, so `server.properties` is never edited.
 
+- `tools/run_server.sh` starts the NeoForge build that the installed bundle's `startserver.sh` names (`NEOFORGE_VERSION`);
+  the tools talk to the server over RCON, so a clone needs a `server.properties` (see `../NOTES.md`, "Server bundle").
 - `tools/new_test_world.sh atm11-test-N` creates the folder with the seed files and the current `pack/`.
 - `tools/full_test.sh atm11-test-N` starts the server, checks the log for pack errors, generates the 9 sample areas
   of `tools/samples.txt` with `/neoforge generate`, lets fluids flow (forceload + `/tick sprint 60s`, which works
@@ -123,6 +126,51 @@ Previews (`previews/`, `tools/previews.py` with `tools/preview_spec.json`; left 
 The renderer draws south-, north-, east- or west-facing faces block by block in approximate texture colours. The
 overview area was picked as the 192-block window of the samples where the most steep columns turned to rock; in it,
 rock on steep columns goes from 32% to 77% and on frozen-peaks cliffs from 4% to 77%.
+
+## All The Mods 11 0.15.0-beta (2026-11-25)
+
+The pack moved to 0.15.0-beta (NeoForge 26.1.2.126, 300 mod jars, KubeGroovy instead of KubeJS; `../NOTES.md`). What
+could matter for Stratafall: Regions Unexplored 0.7.0+beta2 -> beta4, the script mod's `dynamic_data` (biome modifiers),
+and 25 new mods. Tectonic 3.0.28, Terralith 2.6.1 and lithostitched 1.8.1 are unchanged, and the new bundle's
+`config/tectonic.json` (Tectonic's defaults) has the values the old one had.
+
+Static check, against reportdump-neo's runDataATM11 reports for 0.15.0-beta:
+- `python3 build.py --reports <new reports> --out <tmp>` writes a pack **byte-identical** to `pack/` (45 files): the
+  same 142 strata biomes of 222 overworld ones (cold 53, arid 17, tropical 20, temperate 52) and the same falls lists
+  (water high 24, low 76, snowy 11; ice high 11, low 14; lava 4). `pack/` needs no rebuild.
+- Every id in `EXCLUDE_IDS` and `VOLCANIC` (Terralith's, Regions Unexplored's chalk cliffs, spires, inferno, icy heights,
+  Thaumaturge's) still exists and is an overworld biome; every tag `build.py` reads exists; all 40 block ids exist.
+- The only other `lithostitched:add_surface_rule` in the pack is Regions Unexplored's (`surface_rule/overworld`,
+  priority 1000, prepend), so Stratafall's rule (900) still runs first. No feature removal (lithostitched or NeoForge)
+  touches Stratafall's features or the `fluid_springs` step; ATM's `remove_lava_springs` (in `kubegroovy/dynamic_data`)
+  removes `spring_closed`, `spring_closed_double` and `spring_open` from `#minecraft:is_nether` only.
+
+Runtime check: test world `atm11-0.15-test-6` (pack v6, `world`'s seed; `tools/new_test_world.sh` + `tools/full_test.sh`:
+the 9 samples, fluids ticked 60 s) on the 0.15.0-beta server, in a 4-core cloud container. The pack loads ("Found new
+data pack file/stratafall") and the console has no Stratafall, lithostitched or worldgen errors; its errors come from
+other mods (loot tables, advancements, configs, NeoForge attachments). Startup took 1 min 52 s, the samples 30-125 s
+each (10.5 min), the tick sprint ran at 6 ticks/s. `tools/compare.py`, with test-6's stats recomputed on the same day
+(they match `test-results.txt` exactly; both tables are appended there):
+
+| Pooled over all samples | test-6 (v6, old pack) | **0.15-test-6** (v6, 0.15.0-beta) |
+|---|---|---|
+| Rock on steep columns (slope 4-6) | 72.1% | **71.2%** |
+| Rock on cliff columns (slope 7+) | 63.3% | **63.4%** |
+| Flowing water above y 72 | 16,174 | **19,459** |
+| Lava above y 64, volcano sample | 818 | **818** |
+| Ice-fall tips (blue ice above y 80), peaks + savanna | 320 | **328** |
+
+- The terrain is the same: 940,146 land columns (939,849) and slope classes of about the same size in every sample.
+  Per sample, rock shares move a few points either way (badlands cliffs 45% -> 39%, meadow cliffs 71% -> 64%, volcano
+  cliffs 40% -> 45%, peaks sheer faces 46% -> 51%), as expected from feature-level changes: 25 new mods add features,
+  and trees, boulders and structures decide whether a cliff column counts as soil. Windswept is mostly frozen ocean;
+  its 48 steep columns (23 now) are mostly icebergs.
+- Water is within the run-to-run noise noted under "Results".
+- No baseline without the pack was run on 0.15.0-beta: the terrain is the same and Stratafall's rule still runs first,
+  so `atm11-test-0` stays the baseline.
+- Verdict: Stratafall works on 0.15.0-beta as it did on the older pack; nothing to change.
+- Tools: `run_server.sh` now starts the bundle's NeoForge build instead of a fixed 26.1.2.109, and `full_test.sh`'s
+  pack-error check reads the console log in `test-logs/` (it looked in `tools/logs/`, so it never printed anything).
 
 ## Known limitations
 

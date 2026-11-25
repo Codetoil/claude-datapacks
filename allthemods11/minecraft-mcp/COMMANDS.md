@@ -2,7 +2,10 @@
 
 Notes for using the `minecraft` MCP tools (and RCON in general) on ATM11: 91 vanilla commands plus
 146 from mods (237 in the report; `chisel`, `ftbchunks_dev` and `newFamily` exist only in the dev
-data run). Syntax comes from the pack's command report; vanilla permission levels were read from the
+data run). Those counts and the tables are for the pack before 0.15.0-beta; 0.15.0-beta's report
+(2026-11-25) has 251 top-level commands, 247 in production (dev only: `bumblezone_cooldown`,
+`bumblezone_debug_spawn_laser`, `ftbchunks_dev`, `newFamily`), and KubeGroovy replaces KubeJS: the
+KubeJS rows below name its commands too. Syntax comes from the pack's command report; vanilla permission levels were read from the
 26.1.2 sources (`Commands.LEVEL_*`). Modded levels aren't recorded anywhere yet.
 
 - **Full syntax** of any command:
@@ -13,7 +16,7 @@ data run). Syntax comes from the pack's command report; vanilla permission level
 - **Level** matters for datapacks: functions run at `function-permission-level=2`, so a function can
   only use level 0–2 commands; others make the function fail to load. For a modded command, try it
   in a function and check the log.
-- **Player-only commands** (homes, `heal`, `kubejs hand`, …) need a player as the source over RCON:
+- **Player-only commands** (homes, `heal`, `kubegroovy hand` / `kubejs hand`, …) need a player as the source over RCON:
   `execute as Codetoil at @s run heal`.
 
 ## Differences from the 26.3 server in ~/datapacks/test
@@ -42,7 +45,7 @@ data run). Syntax comes from the pack's command report; vanilla permission level
 | `neoforge dump registry <registry>` · `neoforge data_components list` · `neoforge tags …` | mod | Registry and tag contents in the running game |
 | `wits` (as a player) · `witsop <dimension> <pos>` | mod | Which structure is at a position |
 | `tectonic debug …` · `tectonic locate …` | mod | Tectonic's terrain debugging |
-| `kubejs errors` · `kubejs dump …` · `kubejs list-tag <tag>` | mod | KubeJS script errors and data |
+| `kubegroovy errors` · `kubegroovy dump …` · `kubegroovy list-tag <tag>` (alias `kgy`; 0.15.0-beta) · `kubejs …` the same (older pack) | mod | Script errors and data |
 | `ftbranks list_all_ranks` · `ftbranks list_ranks_of <player>` · `ftbranks list_players_with <rank>` | mod | Ranks (read-only, allowed) |
 | `ftbteams list` · `ftbteams info …` · `ftbchunks info …` | mod | Teams and claims |
 | `crashutilities entities|blockentities|chunks|activity …` (alias `cu`) | mod | Lag hunting: what's loaded where |
@@ -80,14 +83,14 @@ data run). Syntax comes from the pack's command report; vanilla permission level
 | `save-all` | 4 | Write chunks before rendering maps (no `flush`: it can trip the watchdog) |
 | `tick freeze|step|sprint …` | 3 | Pause or fast-forward |
 
-Worldgen changes (datapack or KubeJS `dynamic_data`) need a server restart; `/reload` doesn't touch worldgen.
+Worldgen changes (datapack or the script mod's `dynamic_data`: `kubegroovy/` in 0.15.0-beta, `kubejs/` before) need a server restart; `/reload` doesn't touch worldgen.
 
 ## 5. Datapack development
 
 | Command | Level | Use |
 |---|---|---|
-| `reload` | 2 | Reload functions, loot tables, recipes, tags, advancements, and KubeJS server scripts. **Not** worldgen |
-| `kubejs reload server-scripts|startup-scripts|config` | mod | Reload KubeJS alone (what startup scripts register still needs a restart) |
+| `reload` | 2 | Reload functions, loot tables, recipes, tags, advancements, and KubeJS server scripts (older pack; KubeGroovy's untested). **Not** worldgen |
+| `kubegroovy reload server-scripts|startup-scripts|config` (0.15.0-beta) · `kubejs reload …` (older pack) | mod | Reload the script mod alone (what startup scripts register still needs a restart) |
 | `datapack enable|disable <name> …` · `function <id> [with …]` · `schedule …` · `return …` | 2 | As in vanilla |
 | `execute … store …` · `scoreboard …` · `data merge|modify|remove …` · `trigger …` (0) | 2 | Data plumbing |
 | `advancement …` · `recipe …` · `loot …` · `summon …` · `random …` · `stopwatch …` · `dialog …` · `swing …` | 2 | Progression, loot, entities, timers |
@@ -106,7 +109,9 @@ Worldgen changes (datapack or KubeJS `dynamic_data`) need a server restart; `/re
   `whitelist add|remove|on|off|reload` (3) · `kick` (3) · `save-off` (4) · `transfer` (3) · `setidletimeout` (3).
 - Modded: `ftbranks` (ranks and permission nodes; the `list_*` subcommands stay allowed) · `mute` / `unmute` ·
   `ftbchunks admin …` and `ftbchunks unclaim_all` (also as `chunks`) · `ftbteams force …` · `ftbteams server …` ·
-  `kubejs eval` / `kjs eval` (runs JavaScript on the server).
+  `kubejs eval` / `kjs eval` (runs JavaScript on the server). KubeGroovy (0.15.0-beta) has no eval command
+  (`/kubegroovy`, `/kgy`: dump, errors, export, generate-typings, hand, help, hotbar, inventory, list-tag,
+  offhand, packmode, persistent-data, reload, stages).
 - Read-only `whitelist list` and `banlist` stay on the auto-allowed tool; `save-all` and `save-on` too.
 - The pack's `startserver.sh` restarts the server 10 s after `stop` unless it was started with `ATM11_RESTART=false`.
 
